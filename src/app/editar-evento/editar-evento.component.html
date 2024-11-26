@@ -1,0 +1,87 @@
+<div class="container">
+  <h2>Editar Evento</h2>
+
+  <!-- Selección de Evento -->
+  <div>
+    <label for="eventoSelect">Selecciona un Evento:</label>
+    <select id="eventoSelect" (change)="seleccionarEvento($event)">
+        <option value="">-- Selecciona --</option>
+        <option *ngFor="let evento of eventos" [value]="evento.id">
+          {{ evento.fecha }} - {{ evento.tipoEvento }} - {{ evento.clienteNombre }}
+        </option>
+      </select>      
+  </div>
+  <br>
+  <hr>
+
+  <!-- Formulario para editar -->
+  <form [formGroup]="eventoForm" *ngIf="eventoSeleccionado">
+    <div>
+      <label for="fecha">Fecha:</label>
+      <input id="fecha" type="date" formControlName="fecha" />
+    </div>
+
+    <div>
+      <label for="hora">Hora:</label>
+      <input id="hora" type="time" formControlName="hora" />
+    </div>
+
+    <div>
+      <label for="tipoEvento">Tipo de Evento:</label>
+      <input id="tipoEvento" type="text" formControlName="tipoEvento" />
+    </div>
+
+    <div>
+      <label for="clienteNombre">Nombre del Cliente:</label>
+      <input id="clienteNombre" type="text" formControlName="clienteNombre" />
+    </div>
+
+    <div>
+      <label for="clienteTelefono">Teléfono del Cliente:</label>
+      <input id="clienteTelefono" type="text" formControlName="clienteTelefono" placeholder="10 dígitos" />
+    </div>
+
+    <div>
+      <label for="lugarCeremonia">Lugar de la Ceremonia:</label>
+      <input id="lugarCeremonia" type="text" formControlName="lugarCeremonia" />
+    </div>
+
+    <div>
+      <label for="lugarRecepcion">Lugar de la Recepción:</label>
+      <input id="lugarRecepcion" type="text" formControlName="lugarRecepcion" />
+    </div>
+
+    <div>
+      <label for="itinerario">Itinerario:</label>
+      <textarea id="itinerario" formControlName="itinerario"></textarea>
+    </div>
+
+    <div>
+      <label for="paquete">Paquete:</label>
+      <input id="paquete" type="text" formControlName="paquete" />
+    </div>
+
+    <div>
+      <label for="precio">Precio Total:</label>
+      <input id="precio" type="number" formControlName="precio" />
+    </div>
+
+    <div>
+      <label for="anticipo">Anticipo:</label>
+      <input id="anticipo" type="number" formControlName="anticipo" />
+    </div>
+
+    <div>
+      Para agregar un pago, ve a <a routerLink="/pagar" routerLinkActive="active">Pagar Evento</a>
+    </div>
+
+    <button type="button" (click)="guardarCambios()">Guardar Cambios</button>
+    <button type="button" (click)="limpiarFormulario()">Cancelar</button>
+  </form>
+
+  <!-- Mensajes -->
+  <div class="messages">
+    <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+  </div>
+</div>

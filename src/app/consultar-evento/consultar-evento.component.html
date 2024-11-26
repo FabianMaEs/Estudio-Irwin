@@ -1,0 +1,50 @@
+<div class="container">
+    <h2>Consultar Eventos</h2>
+  
+    <!-- Formulario de Filtros -->
+    <form [formGroup]="eventoForm" (ngSubmit)="filtrarEventos()">
+      <div>
+        <label for="fecha">Fecha:</label>
+        <input id="fecha" type="date" formControlName="fecha" />
+      </div>
+  
+      <div>
+        <label for="tipoEvento">Tipo de Evento:</label>
+        <input id="tipoEvento" type="text" formControlName="tipoEvento" placeholder="Ejemplo: Boda" />
+      </div>
+  
+      <div>
+        <label for="clienteNombre">Nombre del Cliente:</label>
+        <input id="clienteNombre" type="text" formControlName="clienteNombre" placeholder="Nombre del cliente" />
+      </div>
+  
+      <div class="buttons">
+        <button type="submit">Filtrar</button>
+        <button type="button" (click)="limpiarFiltros()">Limpiar Filtros</button>
+        <button type="button" (click)="limpiarResultados()">Limpiar resultados</button>
+      </div>
+    </form>
+  
+    <!-- Resultados -->
+    <div class="resultados">
+      <h3>Resultados:</h3>
+      <div *ngIf="eventosFiltrados.length === 0">
+        <p>No se encontraron eventos que coincidan con los criterios.</p>
+      </div>
+      <div *ngFor="let evento of eventosFiltrados" class="evento">
+        <p><strong>Fecha:</strong> {{ evento.fecha }}</p>
+        <p><strong>Hora:</strong> {{ evento.hora }}</p>
+        <p><strong>Tipo de Evento:</strong> {{ evento.tipoEvento }}</p>
+        <p><strong>Cliente:</strong> {{ evento.clienteNombre }}</p>
+        <p><strong>Lugar de la Ceremonia:</strong> {{ evento.lugarCeremonia }}</p>
+        <p><strong>Lugar de la Recepción:</strong> {{ evento.lugarRecepcion }}</p>
+        <p><strong>Itinerario:</strong> {{ evento.itinerario }}</p>
+        <p><strong>Paquete:</strong> {{ evento.paquete }}</p>
+        <p><strong>Precio Total:</strong> ${{ evento.precio }}</p>
+        <p><strong>Anticipo:</strong> ${{ evento.anticipo }}</p>
+        <p><strong>Pagado:</strong> {{ evento.pagado ? 'Sí' : 'No' }}</p>
+        <hr />
+      </div>
+    </div>
+  </div>
+  

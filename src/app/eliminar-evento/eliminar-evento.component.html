@@ -1,0 +1,32 @@
+<div class="container">
+    <h2>Eliminar Evento</h2>
+  
+    <!-- Selección de Evento -->
+    <div>
+      <label for="eventoSelect">Selecciona un Evento para Eliminar:</label>
+      <select id="eventoSelect" (change)="seleccionarEvento($event)">
+        <option value="">-- Selecciona --</option>
+        <option *ngFor="let evento of eventos" [value]="evento.id">
+          {{ evento.fecha }} - {{ evento.tipoEvento }} - {{ evento.clienteNombre }}
+        </option>
+      </select>
+    </div>
+  
+    <!-- Botón de eliminación -->
+    <div class="actions" *ngIf="eventoSeleccionado">
+      <p>
+        <strong>Evento Seleccionado:</strong><br />
+        Fecha: {{ eventoSeleccionado.fecha }}<br />
+        Tipo: {{ eventoSeleccionado.tipoEvento }}<br />
+        Cliente: {{ eventoSeleccionado.clienteNombre }}
+      </p>
+      <button (click)="eliminarEvento()">Eliminar Evento</button>
+    </div>
+  
+    <!-- Mensajes -->
+    <div class="messages">
+      <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+      <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+    </div>
+  </div>
+  

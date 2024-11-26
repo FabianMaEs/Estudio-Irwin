@@ -1,0 +1,130 @@
+<div class="container">
+    <h2>Agendar Nuevo Evento</h2>
+  
+    <form [formGroup]="eventoForm" (ngSubmit)="agendarEvento()">
+      <!-- Campo de Fecha -->
+      <div>
+        <label for="fecha">Fecha:</label>
+        <input id="fecha" type="date" formControlName="fecha" />
+        <div *ngIf="eventoForm.get('fecha')?.invalid && eventoForm.get('fecha')?.dirty">
+          <p *ngIf="eventoForm.get('fecha')?.hasError('required')" class="error">La fecha es obligatoria.</p>
+          <p *ngIf="eventoForm.get('fecha')?.hasError('fechaInvalida')" class="error">
+            La fecha debe ser posterior a 3 días desde hoy.
+          </p>
+        </div>
+      </div>
+  
+      <!-- Campo de Tipo de Evento -->
+      <div>
+        <label for="tipoEvento">Tipo de Evento:</label>
+        <select id="tipoEvento" formControlName="tipoEvento">
+          <option value="Boda">Boda</option>
+          <option value="XV Años">XV Años</option>
+          <option value="Cumpleaños">Cumpleaños</option>
+          
+          <option value="Otro">Otro</option>
+        </select>
+        <div *ngIf="eventoForm.get('tipoEvento')?.invalid && eventoForm.get('tipoEvento')?.dirty">
+          <p class="error">El tipo de evento es obligatorio.</p>
+        </div>
+      </div>
+  
+      <!-- Campo de Cliente Nombre -->
+      <div>
+        <label for="clienteNombre">Nombre del Cliente:</label>
+        <input id="clienteNombre" type="text" formControlName="clienteNombre" />
+        <div *ngIf="eventoForm.get('clienteNombre')?.invalid && eventoForm.get('clienteNombre')?.dirty">
+          <p class="error">El nombre del cliente es obligatorio.</p>
+        </div>
+      </div>
+  
+      <!-- Campo de Cliente Teléfono -->
+      <div>
+        <label for="clienteTelefono">Teléfono del Cliente:</label>
+        <input id="clienteTelefono" type="text" formControlName="clienteTelefono" placeholder="10 dígitos" />
+        <div *ngIf="eventoForm.get('clienteTelefono')?.invalid && eventoForm.get('clienteTelefono')?.dirty">
+          <p *ngIf="eventoForm.get('clienteTelefono')?.hasError('required')" class="error">El teléfono es obligatorio.</p>
+          <p *ngIf="eventoForm.get('clienteTelefono')?.hasError('pattern')" class="error">
+            El teléfono debe tener 10 dígitos.
+          </p>
+        </div>
+      </div>
+
+        <!-- Campo de Lugar de Ceremonia -->
+        <div>
+            <label for="lugarCeremonia">Lugar de la Ceremonia:</label>
+            <input id="lugarCeremonia" type="text" formControlName="lugarCeremonia" required />
+            <div>
+                <p *ngIf="eventoForm.get('lugarCeremonia')?.invalid && eventoForm.get('lugarCeremonia')?.dirty" class="error">
+                    El lugar de la ceremonia es obligatorio.
+                </p>
+            </div>
+        </div>
+
+        <!-- Campo de Lugar de Recepción -->
+        <div>
+            <label for="lugarRecepcion">Lugar de Recepción:</label>
+            <input id="lugarRecepcion" type="text" formControlName="lugarRecepcion" required />
+            <div>
+                <p *ngIf="eventoForm.get('lugarRecepcion')?.invalid && eventoForm.get('lugarRecepcion')?.dirty" class="error">
+                    El lugar de recepción es obligatorio.
+                </p>
+            </div>
+
+        </div>
+        
+        <!-- Campo de Itinerario -->
+        <div>
+            <label for="itinerario">Itinerario:</label>
+            <textarea id="itinerario" formControlName="itinerario" required></textarea>
+            <div>
+                <p *ngIf="eventoForm.get('itinerario')?.invalid && eventoForm.get('itinerario')?.dirty" class="error">
+                    El itinerario es obligatorio.
+                </p>
+            </div>
+        </div>
+
+        <!-- Campo de Paquete -->
+        <div>
+            <label for="paquete">Paquete:</label>
+            <select id="paquete" formControlName="paquete" required>
+                <option value="Basico">Básico</option>
+                <option value="Intermedio">Intermedio</option>
+                <option value="Premium">Premium</option>
+            </select>
+            <div>
+                <p *ngIf="eventoForm.get('paquete')?.invalid && eventoForm.get('paquete')?.dirty" class="error">
+                    El paquete es obligatorio.
+                </p>
+            </div>
+        </div>
+
+        <!-- Campo de Precio total -->
+        <div>
+            <label for="precio">Precio Total:</label>
+            <input id="precio" type="number" formControlName="precio" required />
+            <div>
+                <p *ngIf="eventoForm.get('precio')?.invalid && eventoForm.get('precio')?.dirty" class="error">
+                    El precio total es obligatorio.
+                </p>
+            </div>
+        </div>
+
+        <!-- Campo de Anticipo -->
+        <div>
+            <label for="anticipo">Anticipo:</label>
+            <input id="anticipo" type="number" formControlName="anticipo" required />
+            <div>
+                <p *ngIf="eventoForm.get('anticipo')?.invalid && eventoForm.get('anticipo')?.dirty" class="error">
+                    El anticipo es obligatorio.
+                </p>
+            </div>
+        </div>
+        <button type="submit">Agendar Evento</button>
+    </form>
+
+    <div class="messages">
+        <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+        <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+    </div>
+</div>

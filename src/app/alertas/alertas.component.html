@@ -1,0 +1,32 @@
+<div class="container">
+    <h2>Alertas</h2>
+  
+    <!-- Alertas de eventos próximos -->
+    <div *ngIf="eventosProximos.length > 0" class="alert-section">
+      <h3>Eventos Próximos (Próximos 7 días):</h3>
+      <ul>
+        <li *ngFor="let evento of eventosProximos">
+          <strong>{{ evento.fecha }}</strong> {{ evento.tipoEvento }} para {{ evento.clienteNombre }}
+          <div *ngIf="evento.pagado === true" style="color: green">Liquidado</div>
+          <div *ngIf="evento.pagado === false" style="color: red;">Sin liquidar</div>
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="eventosProximos.length === 0" class="no-alerts">
+      <p>No hay eventos programados para los próximos 7 días.</p>
+    </div>
+  
+    <!-- Alertas de eventos pendientes -->
+    <div *ngIf="eventosPendientes.length > 0" class="alert-section">
+      <h3>Eventos con Pago Pendiente:</h3>
+      <ul>
+        <li *ngFor="let evento of eventosPendientes">
+          <strong>{{ evento.clienteNombre }}</strong> debe pagar <strong>${{ evento.precio - evento.anticipo }}</strong> para el evento de {{ evento.tipoEvento }} (Fecha: {{ evento.fecha }})
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="eventosPendientes.length === 0" class="no-alerts">
+      <p>No hay eventos con pagos pendientes.</p>
+    </div>
+  </div>
+  

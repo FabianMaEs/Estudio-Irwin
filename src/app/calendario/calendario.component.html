@@ -1,0 +1,45 @@
+<div class="calendar-container">
+    <h2>Calendario de Disponibilidad</h2>
+  
+    <!-- Controles de Navegación -->
+    <div class="calendar-controls">
+      <button (click)="cambiarMes(-1)">&#9664; Anterior</button>
+      <span>{{ anioActual }} - {{ mesActual + 1 | number: '2.0' }}</span>
+      <button (click)="cambiarMes(1)">Siguiente &#9654;</button>
+    </div>
+    <br>
+    <!-- Nombres de los días -->
+    <div class="calendar-days">
+      <div>Lun</div>
+      <div>Mar</div>
+      <div>Miér</div>
+      <div>Jue</div>
+      <div>Vie</div>
+      <div>Sáb</div>
+      <div>Dom</div>
+    </div>
+    
+    <!-- Días del Mes -->
+    <div class="calendar-grid">
+      <div *ngFor="let dia of diasDelMes" 
+           [class.ocupado]="esDiaOcupado(dia)"
+           [class.seleccionado]="diaSeleccionado?.toDateString() === dia.toDateString()"
+           (click)="seleccionarDia(dia)">
+        {{ dia.getDate() }}
+      </div>
+    </div>
+  
+    <!-- Detalles de Eventos -->
+    <div class="event-details" *ngIf="eventosDelDia.length > 0">
+      <h3>Eventos para el {{ diaSeleccionado?.toDateString() }}</h3>
+      <ul>
+        <li *ngFor="let evento of eventosDelDia">
+          {{ evento.tipoEvento }} - {{ evento.clienteNombre }} a las {{ evento.hora }}
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="diaSeleccionado && eventosDelDia.length === 0">
+      <p>No hay eventos programados para este día.</p>
+    </div>
+  </div>
+  

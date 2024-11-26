@@ -1,0 +1,45 @@
+<div class="container">
+    <h2>Registrar Pago</h2>
+  
+    <!-- Selección de Evento -->
+    <div>
+      <label for="eventoSelect">Selecciona un Evento para Pagar:</label>
+      <select id="eventoSelect" (change)="seleccionarEvento($event)">
+        <option value="">-- Selecciona --</option>
+        <option *ngFor="let evento of eventos" [value]="evento.id">
+          {{ evento.fecha }} - {{ evento.tipoEvento }} - {{ evento.clienteNombre }}
+        </option>
+      </select>
+    </div>
+  
+    <!-- Detalles del Evento Seleccionado -->
+    <div *ngIf="eventoSeleccionado" class="evento-detalles">
+      <h3>Detalles del Evento:</h3>
+      <p><strong>Cliente:</strong> {{ eventoSeleccionado.clienteNombre }}</p>
+      <p><strong>Tipo de Evento:</strong> {{ eventoSeleccionado.tipoEvento }}</p>
+      <p><strong>Precio Total:</strong> ${{ eventoSeleccionado.precio }}</p>
+      <p><strong>Anticipo Pagado:</strong> ${{ eventoSeleccionado.anticipo }}</p>
+      <p><strong>Restante:</strong> ${{ eventoSeleccionado.precio - eventoSeleccionado.anticipo }}</p>
+      <p><strong>Pagado:</strong> {{ eventoSeleccionado.pagado ? 'Sí' : 'No' }}</p>
+    </div>
+  
+    <!-- Formulario para Registrar Pago -->
+    <form [formGroup]="pagoForm" (ngSubmit)="registrarPago()" *ngIf="eventoSeleccionado">
+      <div>
+        <label for="pago">Monto a Pagar:</label>
+        <input id="pago" type="number" formControlName="pago" placeholder="Ingresa el monto" />
+        <div *ngIf="pagoForm.get('pago')?.invalid && pagoForm.get('pago')?.touched">
+          <p class="error" *ngIf="pagoForm.get('pago')?.hasError('required')">El monto es obligatorio.</p>
+          <p class="error" *ngIf="pagoForm.get('pago')?.hasError('min')">El monto debe ser mayor a $0.</p>
+        </div>
+      </div>
+      <button type="submit">Registrar Pago</button>
+    </form>
+  
+    <!-- Mensajes -->
+    <div class="messages">
+      <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+      <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+    </div>
+  </div>
+  

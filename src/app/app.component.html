@@ -1,0 +1,21 @@
+<nav>
+  <ul *ngIf="authService.isAuthenticated(); else loginNav">
+    <li><a routerLink="/agendar" routerLinkActive="active">Agendar Evento</a></li>
+    <li><a routerLink="/consultar" routerLinkActive="active">Consultar Evento</a></li>
+    <li><a routerLink="/editar" routerLinkActive="active">Editar Evento</a></li>
+    <li><a routerLink="/eliminar" routerLinkActive="active">Eliminar Evento</a></li>
+    <li><a routerLink="/pagar" routerLinkActive="active">Pagar Evento</a></li>
+    <li><a routerLink="/alertas" routerLinkActive="active">Próximos Eventos</a></li>
+    <li><a routerLink="/calendario" routerLinkActive="active">Calendario</a></li>
+    <li><a (click)="logout()" class="logout-btn">Cerrar Sesión</a></li>
+  </ul>
+  <ng-template #loginNav>
+    <ul>
+      <li><a routerLink="/login" routerLinkActive="active">Iniciar Sesión</a></li>
+    </ul>
+  </ng-template>
+</nav>
+
+<div class="content">
+  <router-outlet></router-outlet>
+</div>
